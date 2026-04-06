@@ -1,3 +1,34 @@
+1.8.1
+~~~~~
+
+- Add open_or_default back as alias for fsspec_open by @tw4l in https://github.com/webrecorder/warcio/pull/197
+
+
+1.8.0
+~~~~~
+
+- Add remote file system (e.g. HTTP and S3) support by @wumpus @malteos in https://github.com/webrecorder/warcio/pull/194
+
+
+1.7.5
+~~~~~
+
+- Fix typos discovered by codespell by @cclauss in https://github.com/webrecorder/warcio/pull/160
+- Migrate to GitHub Actions CI and resolve dependency issues by @tw4l in https://github.com/webrecorder/warcio/pull/164
+- Add very simple test for version argument and use importlib feature instead of deprecated pkg_resources for version by @white-gecko in https://github.com/webrecorder/warcio/pull/173
+- Run pytest directly. setup.py test was removed in setuptools 72. by @white-gecko in https://github.com/webrecorder/warcio/pull/172
+- Update codecov/codecov-action from v1 to v4 by @white-gecko in https://github.com/webrecorder/warcio/pull/171
+- Remove superfluous ci step by @white-gecko in https://github.com/webrecorder/warcio/pull/174
+- Test python 3.12 by @white-gecko in https://github.com/webrecorder/warcio/pull/175
+- chore: finish py3.12 by @wumpus in https://github.com/webrecorder/warcio/pull/176
+- feat: add darwin and windows CI by @wumpus in https://github.com/webrecorder/warcio/pull/178
+- doc: document how to use brotli; test brotli by @wumpus in https://github.com/webrecorder/warcio/pull/179
+- feat: test old ubuntu version by @wumpus in https://github.com/webrecorder/warcio/pull/180
+- feat: try py 3.13, plus typos by @wumpus in https://github.com/webrecorder/warcio/pull/184
+- Handle deprecation of naive datetime functions like utcnow() by @tw4l in https://github.com/webrecorder/warcio/pull/185
+- bump version to 1.7.5 by @ikreymer in https://github.com/webrecorder/warcio/pull/186
+
+
 1.7.4
 ~~~~~
 

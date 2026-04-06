@@ -40,6 +40,27 @@ class TestUtils(object):
         ret = utils.headers_to_str_headers(aiohttp_headers)
         assert Counter(ret) == Counter(titlecase_result)
 
+    def test_fsspec_open(self):
+        default_fh = BytesIO(b'NOTWARC/1.0\r\n')
+
+        with utils.fsspec_open(get_test_file('example.warc'), 'rb', default_fh) as fh:
+            assert fh.readline().decode('utf-8') == 'WARC/1.0\r\n'
+
+        with utils.fsspec_open(None, 'rb', default_fh) as fh:
+            assert fh.readline().decode('utf-8') == 'NOTWARC/1.0\r\n'
+
+        default_fh.seek(0)
+        with utils.fsspec_open(b'-', 'rb', default_fh) as fh:
+            assert fh.readline().decode('utf-8') == 'NOTWARC/1.0\r\n'
+
+        default_fh.seek(0)
+        with utils.fsspec_open(u'-', 'rb', default_fh) as fh:
+            assert fh.readline().decode('utf-8') == 'NOTWARC/1.0\r\n'
+
+        default_fh.seek(0)
+        with utils.fsspec_open(default_fh, 'rb', None) as fh:
+            assert fh.readline().decode('utf-8') == 'NOTWARC/1.0\r\n'
+
     def test_open_or_default(self):
         default_fh = BytesIO(b'NOTWARC/1.0\r\n')
 

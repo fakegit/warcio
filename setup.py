@@ -2,24 +2,9 @@
 # vim: set sw=4 et:
 
 from setuptools import setup, find_packages
-from setuptools.command.test import test as TestCommand
-import glob
 
-__version__ = '1.7.4'
+__version__ = '1.8.1'
 
-
-class PyTest(TestCommand):
-    def finalize_options(self):
-        TestCommand.finalize_options(self)
-        # should work with setuptools <18, 18 18.5
-        self.test_suite = ' '
-
-    def run_tests(self):
-        import pytest
-        import sys
-        import os
-        errcode = pytest.main(['--doctest-modules', './warcio', '--cov', 'warcio', '-v', 'test/'])
-        sys.exit(errcode)
 
 setup(
     name='warcio',
@@ -42,26 +27,47 @@ setup(
         [console_scripts]
         warcio = warcio.cli:main
     """,
-    cmdclass={'test': PyTest},
     test_suite='',
-    tests_require=[
-        'pytest',
-        'pytest-cov',
-        'httpbin==0.5.0',
-        'requests',
-        'wsgiprox',
-    ],
+    extras_require={
+        'testing': [
+            'urllib3>=1.26.5,<1.26.16',
+            'pytest',
+            'pytest-cov',
+            'httpbin>=0.10.2',
+            'requests',
+            'wsgiprox',
+            'hookdns',
+            # fsspec testing
+            'warcio[s3]',  # note: drags in fsspec
+            'moto[s3]>=4',
+            's3fs',  # needs to be explicit, to avoid async, which conflicts with moto
+            'flask',
+            'flask_cors',
+            'botocore',
+        ],
+        'all': [
+            'brotlipy',
+            'warcio[s3]',
+        ],
+        's3': [
+            'fsspec',
+            's3fs',
+            'aiohttp',
+            'requests',
+        ]
+    },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'License :: OSI Approved :: Apache Software License',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
+        #'Programming Language :: Python :: 3.7',  # no longer in github actions
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Utilities',
     ]
